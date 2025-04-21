@@ -12,8 +12,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Contracts\Application\" />
-	  <Folder Include="Features\People\Handlers\CommandHandlers\" />
-	  <Folder Include="Features\People\Handlers\QueryHandlers\" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -15,10 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\Contacts.Application\Contacts.Application.csproj" />
 	  <ProjectReference Include="..\Contacts.Domain\Contacts.Domain.csproj" />
 	  <ProjectReference Include="..\Contacts.Infrastructure\Contacts.Infrastructure.csproj" />
