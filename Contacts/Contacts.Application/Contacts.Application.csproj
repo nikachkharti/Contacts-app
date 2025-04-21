@@ -10,4 +10,12 @@
 	  <ProjectReference Include="..\Contacts.Domain\Contacts.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Contracts\Application\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="MediatR" Version="12.5.0" />
+	</ItemGroup>
+
 </Project>
