@@ -11,8 +11,8 @@ namespace Contacts.API
 
             builder.AddControllers();
             builder.AddSwagger();
-            builder.AddApplication();
-            builder.AddInfrastructure();
+            builder.AddApplicationLayer();
+            builder.AddInfrastructureLayer();
 
             var app = builder.Build();
 

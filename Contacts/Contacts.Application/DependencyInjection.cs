@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Contacts.Application.Behaviors;
+using Contacts.Application.Features.People.Handlers.QueryHandlers;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Contacts.Application
 {
@@ -6,12 +8,13 @@ namespace Contacts.Application
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            var applicationAssembly = typeof(DependencyInjection).Assembly;
+            var applicationAssembly = typeof(GetAllPeopleQueryHandler).Assembly;
 
-            services.AddMediatR(options =>
+            services.AddMediatR(cfg =>
             {
-                options.RegisterServicesFromAssembly(applicationAssembly);
-                //cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                cfg.RegisterServicesFromAssembly(applicationAssembly);
+                cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
             });
 
             services.AddAutoMapper(applicationAssembly);

@@ -13,10 +13,10 @@ namespace Contacts.API.Extensions
             builder.Services.AddControllers();
         }
 
-        public static void AddOpenApi(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddOpenApi();
-        }
+        //public static void AddOpenApi(this WebApplicationBuilder builder)
+        //{
+        //    builder.Services.AddOpenApi();
+        //}
 
         public static void AddSwagger(this WebApplicationBuilder builder)
         {
@@ -58,12 +58,12 @@ namespace Contacts.API.Extensions
             });
         }
 
-        public static void AddApplication(this WebApplicationBuilder builder)
+        public static void AddApplicationLayer(this WebApplicationBuilder builder)
         {
             builder.Services.AddApplication();
         }
 
-        public static void AddInfrastructure(this WebApplicationBuilder builder)
+        public static void AddInfrastructureLayer(this WebApplicationBuilder builder)
         {
             builder.Services.AddInfrastructure(builder.Configuration);
         }

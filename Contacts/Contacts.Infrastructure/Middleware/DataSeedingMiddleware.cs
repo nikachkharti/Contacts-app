@@ -76,6 +76,8 @@ namespace Contacts.Infrastructure.Middleware
             {
                 Console.WriteLine(ex.ToString());
             }
+
+            await _next(context);
         }
     }
 }
