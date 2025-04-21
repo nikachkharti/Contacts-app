@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Contacts.Application;
+using Contacts.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -56,5 +58,14 @@ namespace Contacts.API.Extensions
             });
         }
 
+        public static void AddApplication(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddApplication();
+        }
+
+        public static void AddInfrastructure(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddInfrastructure(builder.Configuration);
+        }
     }
 }
