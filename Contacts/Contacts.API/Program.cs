@@ -1,4 +1,5 @@
 using Contacts.API.Extensions;
+using Contacts.Infrastructure.Middleware;
 
 namespace Contacts.API
 {
@@ -15,6 +16,7 @@ namespace Contacts.API
 
             var app = builder.Build();
 
+            app.UseMiddleware<DataSeedingMiddleware>();
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseHttpsRedirection();
