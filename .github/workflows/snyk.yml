@@ -33,7 +33,7 @@ jobs:
 
       - name: Run Snyk Code Analysis (SAST)
         working-directory: ./Contacts
-        run: snyk code test || true  # `|| true` avoids breaking pipeline on findings
+        run: snyk code test --all-projects || true
 
       - name: Run Snyk Open Source Dependency Scan
         working-directory: ./Contacts
