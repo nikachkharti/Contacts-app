@@ -35,6 +35,10 @@ jobs:
         working-directory: ./Contacts
         run: snyk code test --all-projects || true
 
+      - name: Upload Snyk Code Results to Dashboard
+        working-directory: ./Contacts
+        run: snyk code monitor --all-projects || true
+
       - name: Run Snyk Open Source Dependency Scan
         working-directory: ./Contacts
         run: snyk test --file=Contacts.sln --severity-threshold=medium || true
