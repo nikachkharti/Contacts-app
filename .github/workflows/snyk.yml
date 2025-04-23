@@ -38,10 +38,10 @@ jobs:
         run: snyk monitor --file=Contacts.sln
 
       - name: Build Docker image
-        run: docker build -t contacts-app -f Contacts/Dockerfile .
+        run: docker build -t contactsapi -f Contacts/Dockerfile .
 
       - name: Snyk Container Scan
-        run: snyk container test contacts-app --severity-threshold=medium
+        run: snyk container test contactsapi --severity-threshold=medium
 
       - name: Monitor Docker image in Snyk
-        run: snyk container monitor contacts-app
+        run: snyk container monitor contactsapi
