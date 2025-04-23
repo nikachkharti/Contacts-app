@@ -1,0 +1,32 @@
+﻿name: Snyk Scan
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  snyk:
+    name: Run Snyk Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x' # adjust to your version
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Authenticate Snyk
+        run: snyk auth 1d0f6fdc-0998-4139-aec9-2735612daf45
+
+      - name: Run Snyk scan
+        run: snyk test --file=myproject.csproj --severity-threshold=medium
