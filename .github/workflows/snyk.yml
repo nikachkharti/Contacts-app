@@ -36,3 +36,12 @@ jobs:
       - name: Monitor project in Snyk Dashboard
         working-directory: ./Contacts
         run: snyk monitor --file=Contacts.sln
+
+      - name: Build Docker image
+        run: docker build -t contacts-app -f Contacts/Dockerfile .
+
+      - name: Snyk Container Scan
+        run: snyk container test contacts-app --severity-threshold=medium
+
+      - name: Monitor Docker image in Snyk
+        run: snyk container monitor contacts-app
