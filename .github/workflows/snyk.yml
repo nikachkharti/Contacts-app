@@ -1,4 +1,4 @@
-﻿name: Snyk Scan on Staging Branch
+﻿name: Snyk Scan
 
 on:
   push:
@@ -35,4 +35,4 @@ jobs:
 
       - name: Monitor project in Snyk Dashboard
         working-directory: ./Contacts
-        run: snyk monitor --file=Contacts.sln --project-name="Contacts.API"
+        run: snyk monitor --file=Contacts.sln
