@@ -1,4 +1,4 @@
-﻿name: Snyk Scan
+﻿name: Snyk Scan on Staging Branch
 
 on:
   push:
@@ -17,10 +17,11 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.x' # adjust to your version
+          dotnet-version: '9.0.x'  # use your actual version
 
-      - name: Install dependencies
-        run: dotnet restore
+      - name: Change to Contacts directory and restore dependencies
+        working-directory: ./Contacts
+        run: dotnet restore Contacts.sln
 
       - name: Install Snyk CLI
         run: npm install -g snyk
@@ -28,5 +29,6 @@ jobs:
       - name: Authenticate Snyk
         run: snyk auth 1d0f6fdc-0998-4139-aec9-2735612daf45
 
-      - name: Run Snyk scan
-        run: snyk test --file=../../Contacts/Contacts.sln --severity-threshold=medium
+      - name: Run Snyk scan on solution
+        working-directory: ./Contacts
+        run: snyk test --file=Contacts.sln --severity-threshold=medium
