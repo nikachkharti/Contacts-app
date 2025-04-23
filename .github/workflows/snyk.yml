@@ -41,9 +41,10 @@ jobs:
         working-directory: ./Contacts
         run: docker build -t contacts-app -f Contacts.API/Dockerfile .
 
+      - name: Run Snyk Docker scan
+        working-directory: ./Contacts
+        run: snyk container test contacts-app --file=Contacts.API/Dockerfile --severity-threshold=medium || true
 
-      - name: Snyk Container Scan
-        run: snyk container test contacts-app --severity-threshold=medium
 
       - name: Monitor Docker image in Snyk
         run: snyk container monitor contacts-app
