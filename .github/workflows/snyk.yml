@@ -17,9 +17,9 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.x'  # Use your actual version
+          dotnet-version: '9.0.x'  # use your actual version
 
-      - name: Restore .NET dependencies
+      - name: Change to Contacts directory and restore dependencies
         working-directory: ./Contacts
         run: dotnet restore Contacts.sln
 
@@ -37,14 +37,11 @@ jobs:
         working-directory: ./Contacts
         run: snyk monitor --file=Contacts.sln
 
-      - name: Build Docker image
+      - name: Run Snyk Code scan (SAST)
         working-directory: ./Contacts
-        run: docker build -t contacts-app -f Contacts.API/Dockerfile .
+        run: snyk code test --severity-threshold=medium
 
-      - name: Run Snyk Docker scan
+      - name: Monitor Snyk Code scan
         working-directory: ./Contacts
-        run: snyk container test contacts-app --file=Contacts.API/Dockerfile --severity-threshold=medium || true
+        run: snyk code monitor
 
-
-      - name: Monitor Docker image in Snyk
-        run: snyk container monitor contacts-app
