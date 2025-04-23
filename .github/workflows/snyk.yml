@@ -1,38 +1,48 @@
-﻿name: Snyk Scan
+﻿name: Snyk Full Scan
 
 on:
   push:
     branches:
       - staging
+  pull_request:
+  workflow_dispatch:
 
 jobs:
-  snyk:
-    name: Run Snyk Scan
+  snyk-security-scan:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '9.0.x'  # use your actual version
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.0.x'
 
-      - name: Change to Contacts directory and restore dependencies
-        working-directory: ./Contacts
-        run: dotnet restore Contacts.sln
+    - name: Install Snyk CLI
+      run: npm install -g snyk
 
-      - name: Install Snyk CLI
-        run: npm install -g snyk
+    - name: Authenticate with Snyk
+      run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
-      - name: Authenticate Snyk
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+    # Optional: Display what Snyk will detect
+    - name: Print detected projects
+      run: snyk test --all-projects --dry-run
 
-      - name: Run Snyk scan on solution
-        working-directory: ./Contacts
-        run: snyk test --file=Contacts.sln --severity-threshold=medium
+    # Dependency scan for each .csproj file
+    - name: Monitor Contacts.API dependencies
+      run: snyk monitor --file=Contacts.API/Contacts.API.csproj --project-name="Contacts.API"
 
-      - name: Monitor project in Snyk Dashboard
-        working-directory: ./Contacts
-        run: snyk monitor --file=Contacts.sln
+    - name: Monitor Contacts.Domain dependencies
+      run: snyk monitor --file=Contacts.Domain/Contacts.Domain.csproj --project-name="Contacts.Domain"
+
+    # Dockerfile scan (adjust path if necessary)
+    - name: Docker scan
+      run: |
+        docker build -t contacts-api -f Contacts.API/Dockerfile .
+        snyk container monitor contacts-api --project-name="Contacts.API Docker"
+
+    # Static Code Analysis
+    - name: Code Analysis (Snyk Code)
+      run: snyk code monitor --project-name="Contacts.API Code"
