@@ -1,48 +1,48 @@
-name: Snyk Scan
+# name: Snyk Scan
 
-on:
-  push:
-    branches:
-      - staging
+# on:
+#   push:
+#     branches:
+#       - staging
 
-jobs:
-  snyk:
-    name: Run Snyk Scan
-    runs-on: ubuntu-latest
+# jobs:
+#   snyk:
+#     name: Run Snyk Scan
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # important for Snyk Code analysis
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0  # important for Snyk Code analysis
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '9.0.x'  # use your actual version
+#       - name: Setup .NET Core
+#         uses: actions/setup-dotnet@v3
+#         with:
+#           dotnet-version: '9.0.x'  # use your actual version
 
-      - name: Restore dependencies
-        working-directory: ./Contacts
-        run: dotnet restore Contacts.sln
+#       - name: Restore dependencies
+#         working-directory: ./Contacts
+#         run: dotnet restore Contacts.sln
 
-      - name: Install Snyk CLI
-        run: npm install -g snyk
+#       - name: Install Snyk CLI
+#         run: npm install -g snyk
 
-      - name: Authenticate with Snyk
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+#       - name: Authenticate with Snyk
+#         run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
-      - name: Run Snyk Code Analysis (SAST)
-        working-directory: ./Contacts
-        run: snyk code test --all-projects || true
+#       - name: Run Snyk Code Analysis (SAST)
+#         working-directory: ./Contacts
+#         run: snyk code test --all-projects || true
 
-      - name: Upload Snyk Code Results to Dashboard
-        working-directory: ./Contacts
-        run: snyk code monitor --all-projects || true
+#       - name: Upload Snyk Code Results to Dashboard
+#         working-directory: ./Contacts
+#         run: snyk code monitor --all-projects || true
 
-      - name: Run Snyk Open Source Dependency Scan
-        working-directory: ./Contacts
-        run: snyk test --file=Contacts.sln --severity-threshold=medium || true
+#       - name: Run Snyk Open Source Dependency Scan
+#         working-directory: ./Contacts
+#         run: snyk test --file=Contacts.sln --severity-threshold=medium || true
 
-      - name: Monitor project in Snyk Dashboard
-        working-directory: ./Contacts
-        run: snyk monitor --file=Contacts.sln
+#       - name: Monitor project in Snyk Dashboard
+#         working-directory: ./Contacts
+#         run: snyk monitor --file=Contacts.sln
