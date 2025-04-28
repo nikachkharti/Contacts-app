@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts.Tests", "Contacts.
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contacts", "Contacts", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5E986A12-A7D4-4E8A-B698-707A7F5083B8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{88B607E0-52CA-4BB7-98E6-BD9FA51E8466} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{79589221-863B-4659-AEB0-B6191DD5F905} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{D9D2C76B-D97C-4E59-BD2A-85E053974784} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{EAC30518-21B0-43B0-A69C-260449B15C14} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {57ACA3DA-3741-4FE8-976E-06A327FBEC29}
