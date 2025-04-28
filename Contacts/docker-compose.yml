@@ -1,9 +1,23 @@
 services:
-    seq:
-      image: datalust/seq
-      container_name: seq
-      environment:
-        - ACCEPT_EULA=Y
-      ports:
-        - "5341:80"
-  
+  mongo-db:
+    image: mongo:latest
+    container_name: mongo-db
+    restart: always
+    ports:
+      - 27019:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - mongo_data:/data/db
+
+  seq:
+    image: datalust/seq
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5341:80"
+
+volumes:
+  mongo_data:
