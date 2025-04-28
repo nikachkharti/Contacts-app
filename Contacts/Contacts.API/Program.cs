@@ -1,5 +1,6 @@
 using Contacts.API.Extensions;
 using Contacts.Infrastructure.Middleware;
+using Serilog;
 
 namespace Contacts.API
 {
@@ -13,6 +14,8 @@ namespace Contacts.API
             builder.AddSwagger();
             builder.AddApplicationLayer();
             builder.AddInfrastructureLayer();
+            builder.AddSerilog();
+
 
             var app = builder.Build();
 
