@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Contacts.Application.Features.People.Handlers.CommandHandlers
 {
-    public class DeletePersonCommandHandler(IPersonRepository personRepository, IMapper mapper)
+    public class DeletePersonCommandHandler(IPersonRepository personRepository)
         : IRequestHandler<DeletePersonCommand, string>
     {
         public async Task<string> Handle(DeletePersonCommand request, CancellationToken cancellationToken)

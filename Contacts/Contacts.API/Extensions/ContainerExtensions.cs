@@ -2,6 +2,7 @@
 using Contacts.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Reflection;
 
 namespace Contacts.API.Extensions
@@ -66,6 +67,18 @@ namespace Contacts.API.Extensions
         public static void AddInfrastructureLayer(this WebApplicationBuilder builder)
         {
             builder.Services.AddInfrastructure(builder.Configuration);
+        }
+
+        public static void AddSerilog(this WebApplicationBuilder builder)
+        {
+            // Read from appsettings + environment-specific settings
+            builder.Host.UseSerilog((context, services, configuration) =>
+            {
+                configuration
+                    .ReadFrom.Configuration(context.Configuration)
+                    .ReadFrom.Services(services)
+                    .Enrich.FromLogContext();
+            });
         }
     }
 }
