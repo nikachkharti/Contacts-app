@@ -15,7 +15,8 @@ namespace Contacts.API
             builder.AddApplicationLayer();
             builder.AddInfrastructureLayer();
             builder.AddSerilog();
-
+            builder.AddAuthentication();
+            builder.AddAuthorization();
 
             var app = builder.Build();
 
@@ -23,6 +24,7 @@ namespace Contacts.API
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
             app.Run();

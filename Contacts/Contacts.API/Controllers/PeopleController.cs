@@ -2,6 +2,7 @@
 using Contacts.Application.Features.People.Queries;
 using Contacts.Application.Helper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -9,6 +10,7 @@ namespace Contacts.API.Controllers
 {
     [Route("api/people")]
     [ApiController]
+    [Authorize]
     public class PeopleController(IMediator mediator) : ControllerBase
     {
         /// <summary>

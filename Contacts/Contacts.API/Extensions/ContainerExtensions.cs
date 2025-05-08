@@ -1,6 +1,7 @@
 ﻿using Contacts.Application;
 using Contacts.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
@@ -79,6 +80,27 @@ namespace Contacts.API.Extensions
                     .ReadFrom.Services(services)
                     .Enrich.FromLogContext();
             });
+        }
+
+        public static void AddAuthentication(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddAuthentication("Bearer")
+              .AddJwtBearer("Bearer", options =>
+              {
+                  options.Authority = builder.Configuration["Jwt:Authority"];
+                  options.RequireHttpsMetadata = false;
+
+                  var validAudiences = builder.Configuration.GetSection("Jwt:Audience").Get<string[]>();
+                  options.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidAudiences = validAudiences
+                  };
+              });
+        }
+
+        public static void AddAuthorization(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddAuthorization();
         }
     }
 }
